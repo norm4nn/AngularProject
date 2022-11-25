@@ -1,0 +1,19 @@
+
+
+:host {
+    display: block;
+    margin-left: 20vw;
+    margin-top: 5vh;
+    
+}
+
+.requirement {
+    color: red;
+    margin-left: 2em;
+    font-size: 1vw;
+    white-space: pre-line;
+}
+
+input {
+    margin-left: 10px;
+}

@@ -1,0 +1,30 @@
+<form [formGroup]="modelForm" (ngSubmit)="onSubmit(modelForm)">
+    <div id="left">
+        
+    <label>Nazwa:</label><input name="name" formControlName="name">
+    <span class="requirement" *ngIf="formErrors.name">{{ formErrors.name }}</span><br>
+
+    <label>Kraj:</label><input name="country" formControlName="country">
+    <span class="requirement" *ngIf="formErrors.country">{{ formErrors.country }}</span><br>
+
+    <label>Lokacja:</label><input name="location" formControlName="location">
+    <span class="requirement" *ngIf="formErrors.location">{{ formErrors.location }}</span><br>
+
+    <label>Data rozpoczęcia:</label><input type="date" name="fromDate" formControlName="fromDate">
+    <span class="requirement" *ngIf="formErrors.fromDate">{{ formErrors.fromDate }}</span><br>
+
+    <label>Data zakończenia:</label><input type="date" name="toDate" formControlName="toDate">
+    <span class="requirement" *ngIf="formErrors.toDate">{{ formErrors.toDate }}</span><br>
+
+    <label>Cena ($):</label><input name="price" formControlName="price">
+    <span class="requirement" *ngIf="formErrors.price">{{ formErrors.price }}</span><br>
+
+    <label>Dostępnych miejsc:</label><input name="availableSpots" formControlName="availableSpots">
+    <span class="requirement" *ngIf="formErrors.availableSpots">{{ formErrors.availableSpots }}</span><br>
+
+    <label>Opis:</label><input name="description" formControlName="description">
+    <span class="requirement" *ngIf="formErrors.description">{{ formErrors.description }}</span><br>
+
+    </div>
+    <button [disabled]="!modelForm.valid"  type="submit" id="add-trip" >Dodaj wycieczkę</button>
+</form>

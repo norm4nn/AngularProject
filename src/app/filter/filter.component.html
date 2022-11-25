@@ -1,0 +1,50 @@
+
+<div class="icon-container" (click)="show()">
+    <span class="material-symbols-outlined">
+        filter_alt
+    </span>
+</div>
+
+<div id="container-filter">
+<span class="material-symbols-outlined" (click)="hide()">
+    close
+</span>
+
+<h2>Filtry</h2>
+
+<form [formGroup]="conditionForm" id="conditions">
+    <label> Nazwa:</label>
+    <br>
+    <input name="name" formControlName="name" type="text" value=''>
+    <br>
+    <label> Kraj:</label>
+    <br>
+    <input name="country" formControlName="country"  type="text"  value=''>
+    <br>
+    <label> Cena min: {{conditionForm.value.minPrice | currency: 'USD'}}</label>
+    <br>
+    <input name="minPrice" formControlName="minPrice" type="range" min="{{minPrice}}" max="{{maxPrice}}" value="{{minPrice}}">
+    <br>
+    <label> Cena max: {{conditionForm.value.maxPrice | currency: 'USD'}}</label>    
+    <br>
+    <input name="maxPrice" formControlName="maxPrice" type="range" min="{{minPrice}}" max="{{maxPrice}}" value="{{maxPrice}}">
+    <br>
+    <label>Data:</label>
+    <br>
+    <label>Od:</label>
+    <br>
+    <input type="date" name="fromDate" formControlName="fromDate" placeholder="MM/DD/YY" value="{{this.fromDate | date: 'shortDate'}}">
+    <br>
+    <label>Do:</label>
+    <br>
+    <input type="date"name="toDate" formControlName="toDate" placeholder="MM/DD/YY" value="{{this.toDate | date: 'shortDate'}}">
+    <br>
+    <label> Ocena min: {{conditionForm.value.minRating}} <span class="fa fa-star" style="color: orange"></span></label>
+    <br>  
+    <input name="minRating" formControlName="minRating" type="range" min="{{minRating}}" max="{{maxRating}}" value="{{minRating}}">
+    <br>
+    <label> Ocena max: {{conditionForm.value.maxRating}} <span class="fa fa-star" style="color: orange"></span></label>    
+    <br>
+    <input name="maxRating" formControlName="maxRating" type="range" min="{{minRating}}" max="{{maxRating}}" value="{{maxRating}}">
+</form>
+</div>

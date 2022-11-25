@@ -1,0 +1,15 @@
+<div id="cart-icon" (click)="show()">
+    <span class="material-symbols-outlined">
+        shopping_cart
+    </span> 
+    SUMA: {{sumOfAll | currency: 'USD'}}
+</div>    
+<div id="cart-container">
+    <span class="material-symbols-outlined" (click)="hide()">
+        close
+    </span> 
+    <h2 >SUMA: {{sumOfAll | currency: 'USD'}}</h2>
+    <div *ngFor="let course of courses">
+        {{course.name | uppercase}} - {{course.reserved}}
+    </div>
+</div>

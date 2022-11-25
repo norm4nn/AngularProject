@@ -1,0 +1,8 @@
+<div class="container">
+    Oceń wycieczkę
+    <div class="stars-container" >
+        <div class="star" *ngFor="let checked of isChecked; let i = index"  (mouseout)="back2normal()" (mouseup)="clicked(i)">
+        <span class="fa fa-star"  [ngStyle]="{'color': checked ? 'orange' : 'none'}"></span>
+        </div>
+    </div>
+</div>

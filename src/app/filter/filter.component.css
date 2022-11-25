@@ -1,0 +1,52 @@
+
+
+#container-filter {
+    display: block;
+    width: auto;
+    min-height: 100vh;
+    position: fixed;
+    right: -100vw;
+    top: 1vw;
+    border: 2px solid black;
+    padding: 1%;
+    background-color: antiquewhite;
+    z-index: 10;
+}
+
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 0,
+    'wght' 900,
+    'GRAD' 0,
+    'opsz' 48;
+    position: absolute;
+    right: 5%;
+}
+.material-symbols-outlined:hover {
+    cursor: pointer;
+}
+
+.icon-container:hover {
+    cursor: pointer;
+}
+
+.icon-container {
+    top: 10%;
+    right: 1vw;
+    background-color: antiquewhite;
+    min-width: 30px;
+    min-height: 30px;
+    width: 3vw;
+    height: 3vw;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    position: fixed;
+}
+
+.icon-container > .material-symbols-outlined {
+    position: relative !important;
+}

@@ -1,0 +1,30 @@
+.checked {
+    color: orange;
+}
+
+:host {
+    display: block;
+    border: 1px solid black;
+    padding: 1%;
+    width: 20%;
+    border-radius: 15px;
+    z-index: 15;
+    position: absolute;
+    top: 35%;
+    right: 3%;
+    font-size: 0.8vw;
+}
+
+.star {
+    margin-right: 2%;
+    width: 1vw;
+    height: 1vw;
+    display: inline;
+}
+
+@media screen and (max-width: 764px) {
+    :host {
+        font-size: 1.5vw;
+        top: 30%;
+    }
+}
