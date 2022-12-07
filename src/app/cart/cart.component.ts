@@ -9,6 +9,7 @@ import { Course } from '../trips/trips.component';
   styleUrls: ['./cart.component.css'],
   providers: []
 })
+
 export class CartComponent implements OnInit {
   courses!: Course[];
   sumOfAll!: number;
@@ -49,7 +50,7 @@ export class CartComponent implements OnInit {
 
   updateSum() {
     this.sumOfAll = 0;
-    console.log(this.courses)
+    // console.log(this.courses);
     this.courses.forEach((course) => {
       this.sumOfAll += course.reserved * course.price;
     });

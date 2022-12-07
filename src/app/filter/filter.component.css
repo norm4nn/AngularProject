@@ -1,4 +1,7 @@
 
+:host {
+    color: white;
+}
 
 #container-filter {
     display: block;
@@ -9,8 +12,9 @@
     top: 1vw;
     border: 2px solid black;
     padding: 1%;
-    background-color: antiquewhite;
-    z-index: 10;
+    background-color: rgb(164, 62, 192);
+    z-index: 101;
+
 }
 
 .material-symbols-outlined {
@@ -31,9 +35,9 @@
 }
 
 .icon-container {
-    top: 10%;
+    top: 12%;
     right: 1vw;
-    background-color: antiquewhite;
+    background-color: rgb(164, 62, 192);
     min-width: 30px;
     min-height: 30px;
     width: 3vw;

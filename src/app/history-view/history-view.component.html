@@ -1,0 +1,55 @@
+<app-date-setter (emit)="updateC()" ></app-date-setter>
+<form>
+    <div id="form-content">
+        <div class="tile">
+            <input type="checkbox" name="beforeCheck" id="beforeCheck" checked="true" [checked]="beforeCondition" (change)="beforeCondition = !beforeCondition">
+            <label style="color: red;">W oczekiwaniu</label>
+        </div>
+        <div class="tile">
+            <input type="checkbox" name="duringCheck" id="duringCheck" checked="true" [checked]="duringCondition" (change)="duringCondition = !duringCondition">
+            <label style="color: orange;">W trakcie</label>
+        </div>
+        <div class="tile">
+            <input type="checkbox" name="afterCheck" id="afterCheck" checked="true" [checked]="afterCondition" (change)="afterCondition = !afterCondition">
+            <label style="color: green;">Odbyte</label>
+        </div>
+    </div>
+</form>
+<div id="cards-container">
+    <!-- | state: beforeCondition: duringCondition: afterCondition -->
+    <div class="card" *ngFor="let course of courses | state: beforeCondition: duringCondition: afterCondition; let i = index">
+        <div ngClass="additional-border-circle" >
+            <a routerLink="/course/{{course.id}}">
+            <div class="img-container">
+                <img src={{course.imgSrc}}>
+            </div>
+            </a>
+        </div>
+        <div class="right">
+            <div class="line"><h4>Nazwa: </h4> {{course.name | uppercase}}</div>
+
+            <div class="line"><h4>Lokacja: </h4> {{course.country | uppercase}}, {{course.location}}</div>
+
+            <div class="line"><h4>Kiedy: </h4> od {{course.fromDate | date:'shortDate'}} do {{course.toDate | date:'shortDate'}}</div>
+
+            <div class="line"><h4>Cena: </h4> {{course.price | currency: currencyType}} </div>            
+            
+            <div class="line"><h4>Ilość zakupionych biletów: </h4> {{course.tickets}}</div>
+            <div class="line"><h4>Data zakupu: </h4> {{course.boughtDate | date: 'shortDate'}}</div>
+
+            <ng-component *ngIf="course.amountOfRates === 0; then zero; else rating"></ng-component>
+            <ng-template #zero>
+                <div class="line"><h4>Ocena: </h4> <span style="color: red;">BRAK</span>  </div>
+            </ng-template>
+            <ng-template #rating>
+                <div class="line"><h4>Ocena: </h4> {{course.rating}} <span class="fa fa-star" style="color: orange"></span> / 5 <span class="fa fa-star" style="color: orange"></span>, ({{course.amountOfRates}}) </div>
+            </ng-template>
+
+            <div class="state" [ngStyle]="{'color': course.state === -1 ? 'red' : 
+            (course.state === 0 ? 'orange' : 'green')}">{{course.msg}}</div>
+        </div>
+    </div>
+
+    <div class="card">
+    </div>
+</div>

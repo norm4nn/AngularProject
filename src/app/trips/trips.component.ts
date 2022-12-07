@@ -1,12 +1,16 @@
 import { Component, OnInit } from '@angular/core';
 import {HttpClient} from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
-import { DatePipe } from '@angular/common';
-import { CartServiceService } from '../cart-service.service';
+import { Observable } from 'rxjs';
+import { CoursesService } from '../courses.service';
+import { DateService } from '../date.service';
 
 export interface Course {
+  id: number;
   name: string;
   imgSrc: string;  
+  imgSrc2: string;  
+  imgSrc3: string;  
   country: string;
   location: string;
   fromDate: Date;
@@ -20,6 +24,29 @@ export interface Course {
   description: string;
 }
 
+export interface BoughtCourse {
+  id: number;
+  name: string;
+  imgSrc: string;  
+  imgSrc2: string;  
+  imgSrc3: string;  
+  country: string;
+  location: string;
+  fromDate: Date;
+  toDate: Date;
+  price: number;
+  availableSpots: number;
+  reserved: number;
+  rating: number;
+  yourRating: number;
+  amountOfRates: number;
+  description: string;
+  boughtDate: Date;
+  tickets: number;
+  state: number; // -1 - nieodbyta, 0 - wtrakcie, 1 - odbyta
+  msg: string;
+}
+
 @Component({
   selector: 'app-trips',
   templateUrl: './trips.component.html',
@@ -31,7 +58,7 @@ export class TripsComponent implements OnInit {
   maxView = 10;
   courses!: Course[];
   sumOfCourses = 0;
-
+  currencyType = this.dateService.currency;
   conditionName = '';
   conditionCountry = '';
   conditionMinPrice!: number;
@@ -48,18 +75,50 @@ export class TripsComponent implements OnInit {
   realFromDate!: Date;
   realToDate!: Date;
 
-    
-  constructor(private http: HttpClient, private cartService: CartServiceService) { }
+  item$!: Observable<any>;
+  constructor(private http: HttpClient, private dateService: DateService, private coursesService: CoursesService) { }
 
+  
+  
   ngOnInit(): void {
-    this.http.get<Course[]>('http://localhost:3000/trips').subscribe({
-      next: data => this.courses = data,
-      error: err => console.log("Wystąpił błąd przy pobieraniu danych z JSON.", err),
+    // pchniecie danych na firebase gdyby ktos zlosliwie usunał
+    // this.http.get<Course[]>('http://localhost:3000/trips').subscribe({
+    //   next: data => {
+    //     this.courses = data;
+    //     data.forEach(course => this.coursesService.createCourse(course))
+    //   },
+    //   error: err => console.log("Wystąpił błąd przy pobieraniu danych z JSON.", err),
+    // });
+    this.coursesService.getCourses().subscribe(change => {
+      this.courses = [];
+      for(let course  of change) {
+        this.courses.push({
+          name: course.name,
+          country: course.country,
+          id: course.id,
+          location: course.location,
+          fromDate: course.fromDate,
+          toDate: course.toDate,
+          imgSrc: course.imgSrc,  
+          imgSrc2: course.imgSrc2,  
+          imgSrc3: course.imgSrc3,  
+          price: course.price,
+          availableSpots: course.availableSpots,
+          reserved: course.reserved,
+          rating: course.rating,
+          yourRating: course.yourRating,
+          amountOfRates: course.amountOfRates,
+          description: course.description
+        })
+      }
     });
+
   }
   
   ngDoCheck() {
       this.findMaxMin();
+      
+      
   }
 
   findMaxMin() {
@@ -88,11 +147,8 @@ export class TripsComponent implements OnInit {
     course.reserved += 1;
     course.reserved = Math.min(course.availableSpots, course.reserved);
 
-    this.cartService.pushCourse(course);
-
-
-    
-    this.findMaxMin();
+    this.coursesService.updateReserved(course.id, course.reserved);
+    this.ngDoCheck();
   }
 
   subtract(course : Course) {
@@ -102,62 +158,55 @@ export class TripsComponent implements OnInit {
     
     course.reserved -= 1;
     course.reserved = Math.max(0, course.reserved);
-    this.cartService.removeCourse(course);
+    this.coursesService.updateReserved(course.id, course.reserved);
+
     
-    this.findMaxMin();
+    this.ngDoCheck();
   }
 
   delete(course : Course) {
     this.sumOfCourses -= course.reserved;
+    this.coursesService.updateReserved(course.id, 0);
     this.courses = this.courses.filter((elem) => {
       return elem !== course;
     });
-    this.cartService.force2remove(course);
     this.ngDoCheck();
 
   }
 
-  create(form : FormGroup) {
-    // console.log(form.value);
-    const newcourse = {} as Course;
-    newcourse.name = form.value['name'];
-    newcourse.country = form.value['country'];
-    newcourse.location = form.value['location'];
-    newcourse.fromDate = form.value['fromDate'] as Date;
-    newcourse.toDate = form.value['toDate'] as Date;
-    newcourse.price = parseInt(form.value['price']);
-    newcourse.availableSpots = parseInt(form.value['availableSpots']);
-    newcourse.description = form.value['description'];
-    newcourse.rating = 0;
-    newcourse.yourRating = 0;
-    newcourse.amountOfRates = 0;
-    newcourse.reserved = 0;
-    this.courses.push(newcourse);
-    this.findMaxMin();
-    this.findDateMaxMin();
-  }
-
-  addReview(rate : number, course : Course) {
-
-    let sum = course.amountOfRates * course.rating;
-    sum -= course.yourRating;
-    sum += rate;
-    if (course.yourRating === 0)
-      course.amountOfRates += 1;
-    course.yourRating = rate;
-    course.rating = parseFloat((sum / course.amountOfRates).toFixed(0));
-  }  
+  // create(form : FormGroup) {
+  //   // console.log(form.value);
+  //   const newcourse = {} as Course;
+  //   newcourse.name = form.value['name'];
+  //   newcourse.country = form.value['country'];
+  //   newcourse.location = form.value['location'];
+  //   newcourse.fromDate = form.value['fromDate'] as Date;
+  //   newcourse.toDate = form.value['toDate'] as Date;
+  //   newcourse.price = parseInt(form.value['price']);
+  //   newcourse.availableSpots = parseInt(form.value['availableSpots']);
+  //   newcourse.description = form.value['description'];
+  //   newcourse.rating = 0;
+  //   newcourse.yourRating = 0;
+  //   newcourse.amountOfRates = 0;
+  //   newcourse.reserved = 0;
+  //   newcourse.imgSrc = '';
+  //   newcourse.id = this.courses.length + 1;
+  //   this.coursesService.createCourse(newcourse as Course);
+  //   this.findMaxMin();
+  //   this.findDateMaxMin();
+  // }
 
   updateFilter(formConditions: FormGroup){
     if (this.courses) {
-      this.conditionMaxPrice = formConditions.value['maxPrice'];
-      this.conditionMinPrice = formConditions.value['minPrice'];
+      this.conditionMaxPrice  = formConditions.value['maxPrice'];
+      this.conditionMinPrice  = formConditions.value['minPrice'];
       this.conditionMaxRating = formConditions.value['maxRating'];
       this.conditionMinRating = formConditions.value['minRating'];
-      this.conditionFromDate = formConditions.value['fromDate'];
-      this.conditionToDate = formConditions.value['toDate'];
-      this.conditionName = formConditions.value['name'];
-      this.conditionCountry = formConditions.value['country'];
+      this.conditionFromDate  = formConditions.value['fromDate'];
+      this.conditionToDate    = formConditions.value['toDate'];
+      this.conditionName      = formConditions.value['name'];
+      this.conditionCountry   = formConditions.value['country'];
+
     }
 
   }

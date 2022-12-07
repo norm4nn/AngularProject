@@ -1,0 +1,48 @@
+
+host {
+    width: 100vw;
+}
+
+
+#img-container{
+    margin-top: -10vh;
+    height: 50vh;
+    overflow: hidden;
+}
+
+
+img {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+#square-container {
+    display: flex;
+    height: auto;
+    width: 100%;
+}
+
+.square-tile {
+    width: 33%;
+    height: auto;
+    padding: 3%;
+    text-align: justify;
+    background-color: whitesmoke;
+    color: blueviolet;
+    border-right: 2px dotted blueviolet;
+}
+
+.square-tile:last-child {
+    border-right: none;
+}
+
+.square-tile > h3 {
+    font-size: 30px;
+    text-align: center;
+}
+
+iframe {
+    width: 100% !important;
+    height: 80% !important;
+}

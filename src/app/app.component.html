@@ -1,2 +1,12 @@
-<app-cart></app-cart>
-<app-trips></app-trips>
+
+<nav>
+    <div id="nav-content">
+        <a routerLink="/home" routerLinkActive="active"><div class="nav-tile">Strona główna</div></a>
+        <a routerLink="/trips" routerLinkActive="active"><div class="nav-tile">Oferta</div></a>
+        <a routerLink="/cart" routerLinkActive="active"><div class="nav-tile">Koszyk</div></a>
+        <a routerLink="/history" routerLinkActive="active"><div class="nav-tile">Historia zakupów</div></a>
+    </div>
+</nav>
+<app-counter></app-counter>
+<app-notification></app-notification>
+<router-outlet></router-outlet>

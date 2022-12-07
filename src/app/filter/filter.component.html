@@ -21,11 +21,11 @@
     <br>
     <input name="country" formControlName="country"  type="text"  value=''>
     <br>
-    <label> Cena min: {{conditionForm.value.minPrice | currency: 'USD'}}</label>
+    <label> Cena min: {{conditionForm.value.minPrice | currency: currencyType}}</label>
     <br>
     <input name="minPrice" formControlName="minPrice" type="range" min="{{minPrice}}" max="{{maxPrice}}" value="{{minPrice}}">
     <br>
-    <label> Cena max: {{conditionForm.value.maxPrice | currency: 'USD'}}</label>    
+    <label> Cena max: {{conditionForm.value.maxPrice | currency: currencyType}}</label>    
     <br>
     <input name="maxPrice" formControlName="maxPrice" type="range" min="{{minPrice}}" max="{{maxPrice}}" value="{{maxPrice}}">
     <br>

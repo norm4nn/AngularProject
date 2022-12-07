@@ -1,0 +1,65 @@
+.material-symbols-outlined {
+    font-variation-settings:
+    'FILL' 1,
+    'wght' 700,
+    'GRAD' 0,
+    'opsz' 24;
+    color: white;
+  }
+
+  :host { 
+    display: block;
+  }
+
+.icon-container {
+    position: fixed;
+    top: 28%;
+    right: 1vw;
+    background-color: rgb(164, 62, 192);
+    min-width: 30px;
+    min-height: 30px;
+    width: 3vw;
+    height: 3vw;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    z-index: 100;
+}
+
+.icon-container:hover {
+    cursor: pointer;
+}
+
+.red-dot {
+    position: absolute;
+    background-color: red;
+    font-size: 1em;
+    color: white;
+    font-weight: 900;
+    border-radius: 300px;
+    top:-10%;
+    left: -10%;
+    min-width: 20px;
+    min-height: 20px;
+    align-content: center;
+    text-align: center;
+}
+
+.msg-container{
+    opacity: 0;
+    color: white;
+    position: fixed;
+    top: 28%;
+    right: 10vw;
+    width: 20vw;    
+    max-height: 60vh;
+    z-index: -1;
+    background-color: #9845BA;
+    padding: 2%;
+    border: 3px solid black;
+    border-radius: 25px;
+    overflow: auto;
+}

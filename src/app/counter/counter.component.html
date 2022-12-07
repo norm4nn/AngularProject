@@ -1,3 +1,4 @@
-<div id="container" [ngStyle]="{'background-color': counter >= 10 ? 'green' : 'red'}">
-    <p >Zarezerwowanych wycieczek: {{counter}}</p>
+<div id="container" [ngStyle]="{'background-color': amount >= 10 ? 'green' : 'red'}">
+    Zarezerwowanych: {{amount}} <br>
+    Suma: {{sum | currency: currencyType}}
 </div>

@@ -9,9 +9,11 @@ export class CartServiceService {
   private course$ = new BehaviorSubject<any>({});
   private course2remove$ = new BehaviorSubject<any>({});
   private f2remove$ = new BehaviorSubject<any>({});
+  private courses$ = new BehaviorSubject<any>({});
   selectedCourse$ = this.course$.asObservable(); 
   selected2remove$ = this.course2remove$.asObservable(); 
   forced2remove$ = this.f2remove$.asObservable(); 
+  passedCourses$ = this.f2remove$.asObservable(); 
   constructor() { }
 
   pushCourse(course: Course) {
@@ -20,11 +22,14 @@ export class CartServiceService {
   }
 
   removeCourse(course: Course) {
-
     this.course2remove$.next(course);
   }
 
   force2remove(course: Course) {
     this.f2remove$.next(course);
+  }
+
+  passCourses(courses: Course) {
+    this.courses$.next(courses);
   }
 }
