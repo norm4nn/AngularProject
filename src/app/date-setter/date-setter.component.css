@@ -1,0 +1,12 @@
+:host {
+    display: block;
+    position: absolute;
+    top: 25vh;
+    left: 5%;
+    border: 2px solid black;
+    padding: 1%;
+    border-radius: 12px;
+    background-color: #7637D2;
+    color: white;
+    z-index: 12;
+}

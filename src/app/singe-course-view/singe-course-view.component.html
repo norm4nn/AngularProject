@@ -1,0 +1,65 @@
+<div class="img-slider">
+    <div class="img-container">
+        <span class="material-symbols-outlined" id="left" (click)="slideL()">
+            arrow_back
+        </span>
+        <span class="material-symbols-outlined" id="right" (click)="slideR()">
+            arrow_forward
+        </span>
+        <img src={{course?.imgSrc}}     id="first">
+        <img src={{course?.imgSrc2}}    id="second">
+        <img src={{course?.imgSrc3}}    id="third">
+    </div>
+    
+    
+</div>
+
+<div class="info">
+    <span class="line"> <b>Nazwa:   </b> {{course?.name | uppercase}} </span> <br>
+    <span class="line"> <b>Lokacja: </b> {{course?.country | uppercase}}, {{course?.location | titlecase}} </span><br>
+    <span class="line"> <b>Kiedy:   </b> Od {{course?.fromDate | date: 'shortDate' }} do {{course?.toDate | date: 'shortDate' }} </span><br>
+    <span class="line"> <b>Cena:    </b> {{course?.price | currency: currencyType }} </span> <br>
+    <!-- <span class="line"> <b>Ilość dostępnych miejsc:    </b> {{course!.availableSpots - course!.reserved}} </span> <br> -->
+    <ng-component *ngIf="course!.availableSpots - course!.reserved > 0; then available; else noavailable"></ng-component>
+            <ng-template #available>
+                <span class="line"><b>Ilość dostępnych miejsc: </b> 
+                    <span [ngStyle]="{'color': course!.availableSpots - course!.reserved <= 3 ? 'red' : 'black'}">
+                        {{course!.availableSpots - course!.reserved}}
+                    </span>
+                </span>
+            </ng-template>
+            <ng-template #noavailable>
+                <span class="line"><b>Ilość dostępnych miejsc: </b> <span style="color: red;">BRAK</span> </span>
+            </ng-template>
+
+    <br><span class="line"> <b>Ocena:    </b> {{course?.rating}} <span class="fa fa-star" style="color: orange"></span> / 5 <span class="fa fa-star" style="color: orange"></span>, ({{course?.amountOfRates}})  </span> <br>
+    <span class="line"> <b>Opis:    </b> {{course?.description  }} </span> <br>
+    
+</div>
+<div class="reservation">
+    <div class="btn" style="background-color: red;" (click)="subtract()"> - </div>
+    <div class="btn" style="background-color: #9845BA;"> {{course?.reserved}} </div>
+    <div class="btn" (click)="add()"> + </div>
+
+</div>
+<app-your-rating (rateEvent)="createPost($any($event))"></app-your-rating>
+<div class="posts-container">
+    <div class="post" *ngFor="let post of posts">
+        <b>Nick:</b> {{post.nick}} <br>
+        <b>Wycieczka:</b> {{post.name}} <br>
+        
+        <div class="star" >
+            <b>Ocena: </b>
+            <span class="fa fa-star"  *ngFor="let i of one2five" [ngStyle]="{'color': i  <= post.rate ? 'orange' : 'none'}"></span>
+        </div>
+        <ng-component *ngIf="post.date.getTime() === post.date.getTime(); then date; else noDate ">
+            
+        </ng-component>
+        <ng-template #noDate>
+        </ng-template>
+        <ng-template #date>
+            <b>Data skorzystania: </b> {{post.date | date: 'shortDate'}}<br>
+        </ng-template>
+        <b>Opis: </b> {{post.description}}
+    </div>
+</div>

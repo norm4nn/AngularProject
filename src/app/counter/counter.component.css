@@ -1,16 +1,19 @@
 #container {
-    width: 50vw;
-    height: 10vh;
-    font-size: 2.5vw;
-    margin-left: auto;
-    margin-right: auto;
+    min-width: auto;
+    width: 15vw;
+    padding: 2vh 2vw;
+    font-size: 1.5vw;
     border-radius: 25px;
-    
+    color: white;
+    position: sticky;
+    top: 12vh; 
+    left: 5vw;
+    border: 2px solid black;
+    z-index: 100;
 }
 
-
-p {
-    color: white;
-    text-align: center;
-    line-height: 10vh;
+@media screen and (max-width: 800px) {
+    #container {
+        width: 20vw;
+    }
 }

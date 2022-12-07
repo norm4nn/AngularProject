@@ -3,7 +3,7 @@
 :host {
     display: block;
     margin-left: 20vw;
-    margin-top: 5vh;
+    margin-top: 15vh;
     
 }
 
@@ -16,4 +16,30 @@
 
 input {
     margin-left: 10px;
+}
+
+.icon-container {
+    top: 20%;
+    right: 1vw;
+    background-color: rgb(164, 62, 192);
+    min-width: 30px;
+    min-height: 30px;
+    width: 3vw;
+    height: 3vw;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    position: fixed;
+}
+
+.material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 0,
+  'wght' 700,
+  'GRAD' 0,
+  'opsz' 48;
+  color: white;
 }

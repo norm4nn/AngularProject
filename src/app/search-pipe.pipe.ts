@@ -2,6 +2,7 @@ import { DatePipe } from '@angular/common';
 import { Pipe, PipeTransform } from '@angular/core';
 import { Course } from './trips/trips.component';
 
+
 @Pipe({ name: 'searchPipe' })
 export class SearchPipe implements PipeTransform {
 

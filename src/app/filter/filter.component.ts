@@ -3,6 +3,7 @@ import { FormBuilder, FormGroup } from '@angular/forms';
 import { debounceTime } from 'rxjs';
 import { DatePipe } from '@angular/common';
 import { animate, state, style, transition, trigger } from '@angular/animations';
+import { DateService } from '../date.service';
 
 @Component({
   selector: 'app-filter',
@@ -16,6 +17,7 @@ export class FilterComponent implements OnInit {
   datepipe = new DatePipe('en-US');
   name = '';
   country = '';
+  currencyType = this.dateService.currency;
   @Input() fromDate!: Date;
   @Input() toDate!: Date;
   @Input() minPrice!: number;
@@ -31,7 +33,7 @@ export class FilterComponent implements OnInit {
   ];
 
 
-  constructor(private formBuilder : FormBuilder) { }
+  constructor(private formBuilder : FormBuilder, private dateService: DateService) { }
 
   ngOnInit(): void {
 

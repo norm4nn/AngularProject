@@ -1,0 +1,15 @@
+
+<div class="msg-container">
+    <span class="course" *ngFor="let course of courses">
+        Wycieczka {{course.name | uppercase}}, rozpocznie się już niedługo: {{course.fromDate | date: 'shortDate'}} 
+        <hr>
+    </span>
+    
+    
+</div>
+<div class="icon-container" (click)="changeVisibility()">
+    <span class="red-dot">{{notificationsQuantity}}</span>
+    <span class="material-symbols-outlined">
+        notifications
+    </span>
+</div>

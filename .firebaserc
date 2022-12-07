@@ -1,0 +1,14 @@
+{
+  "targets": {
+    "courses-a6a04": {
+      "hosting": {
+        "AngularProject": [
+          "courses-a6a04"
+        ]
+      }
+    }
+  },
+  "projects": {
+    "default": "courses-a6a04"
+  }
+}

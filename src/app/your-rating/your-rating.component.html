@@ -1,8 +1,25 @@
 <div class="container">
-    Oceń wycieczkę
-    <div class="stars-container" >
-        <div class="star" *ngFor="let checked of isChecked; let i = index"  (mouseout)="back2normal()" (mouseup)="clicked(i)">
+    <b>Oceń wycieczkę</b> <br>
+    Ocena: 
+    <span class="stars-container" >
+        <div class="star" *ngFor="let checked of isChecked; let i = index"  (mouseup)="clicked(i)">
         <span class="fa fa-star"  [ngStyle]="{'color': checked ? 'orange' : 'none'}"></span>
         </div>
-    </div>
+    </span>
+    <form [formGroup]="modelForm" (ngSubmit)="submit()">
+        <span>Nick: </span>
+        <input id="nick" formControlName="nick"> 
+        <span style="color: red;" *ngIf="formErrors.nick">{{ formErrors.nick }}</span><br>
+        <span>Dotyczy: </span>
+        <input id="name" formControlName="name"> 
+        <span style="color: red;" *ngIf="formErrors.name">{{ formErrors.name }}</span><br>
+        <span>Data skorzystania: </span>
+        <input type="date" id="date" name="date" formControlName="date">
+        <span style="color: red;" *ngIf="formErrors.date">{{ formErrors.date }}</span> <br>
+        Opinia:
+        <br>
+        <textarea id="review" name="review" rows="5" cols="60"></textarea>
+        <input type="submit" id="submit"  [disabled]="!modelForm.valid"  value="Dodaj opinie"> 
+        <span style="color: red;">{{errMsg}}</span>
+    </form>
 </div>

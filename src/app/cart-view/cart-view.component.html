@@ -1,0 +1,55 @@
+<app-counter></app-counter>
+<div id="cards-container">
+
+    <div class="card" *ngFor="let course of courses; let i = index">
+        <div ngClass="additional-border-circle" >
+            <a routerLink="/course/{{course.id}}">
+            <div class="img-container">
+                <img src={{course.imgSrc}}>
+            </div>
+            </a>
+        </div>
+        <div class="right">
+            <div class="line"><h4>Nazwa: </h4> {{course.name | uppercase}}</div>
+
+            <div class="line"><h4>Lokacja: </h4> {{course.country | uppercase}}, {{course.location}}</div>
+
+            <div class="line"><h4>Kiedy: </h4> od {{course.fromDate | date:'shortDate'}} do {{course.toDate | date:'shortDate'}}</div>
+
+            <div class="line"><h4>Cena: </h4> {{course.price | currency: currencyType}} </div>
+
+            <ng-component *ngIf="course.availableSpots - course.reserved > 0; then available; else noavailable"></ng-component>
+            <ng-template #available>
+                <div class="line"><h4>Ilość dostępnych miejsc: </h4> 
+                    <span [ngStyle]="{'color': course.availableSpots - course.reserved <= 3 ? 'red' : 'black'}">
+                        {{course.availableSpots - course.reserved}}
+                    </span>
+                </div>
+            </ng-template>
+            <ng-template #noavailable>
+                <div class="line"><h4>Ilość dostępnych miejsc: </h4> <span style="color: red;">BRAK</span> </div>
+            </ng-template>
+
+            <ng-component *ngIf="course.amountOfRates === 0; then zero; else rating"></ng-component>
+            <ng-template #zero>
+                <div class="line"><h4>Ocena: </h4> <span style="color: red;">BRAK</span>  </div>
+            </ng-template>
+            <ng-template #rating>
+                <div class="line"><h4>Ocena: </h4> {{course.rating}} <span class="fa fa-star" style="color: orange"></span> / 5 <span class="fa fa-star" style="color: orange"></span>, ({{course.amountOfRates}}) </div>
+            </ng-template>
+
+
+            <button class="buy" (click)="buy(course)">Zakup wycieczki</button>
+            <button class="delete" (click)="delete(course)">Zrezygnuj z wycieczek</button>
+            <div class="reserve">
+                <button (click)="add(course)"  [ngClass]="course.reserved == course.availableSpots ? 'hide' : 'appear'">+</button>
+                {{course.reserved}}
+                <button (click)="subtract(course)" [ngClass]="course.reserved == 0 ? 'hide' : 'appear'">-</button>
+            </div>
+            
+        </div>
+    </div>
+
+    <div class="card">
+    </div>
+</div>
