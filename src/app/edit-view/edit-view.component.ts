@@ -1,68 +1,17 @@
+import { HttpClient } from '@angular/common/http';
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from '@angular/common/http';
 import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CoursesService } from '../courses.service';
 import { DateService } from '../date.service';
-
-export interface Course {
-  id: number;
-  name: string;
-  imgSrc: string;  
-  imgSrc2: string;  
-  imgSrc3: string;  
-  country: string;
-  location: string;
-  fromDate: Date;
-  toDate: Date;
-  price: number;
-  availableSpots: number;
-  reserved: number;
-  rating: number;
-  yourRating: number;
-  amountOfRates: number;
-  description: string;
-}
-
-export interface User {
-  uid: string;
-  nick: string;
-  email: string;
-  role: string;
-  banned: boolean;
-  reviewed: any;
-}
-
-export interface BoughtCourse {
-  id: number;
-  name: string;
-  imgSrc: string;  
-  imgSrc2: string;  
-  imgSrc3: string;  
-  country: string;
-  location: string;
-  fromDate: Date;
-  toDate: Date;
-  price: number;
-  availableSpots: number;
-  reserved: number;
-  rating: number;
-  yourRating: number;
-  amountOfRates: number;
-  description: string;
-  boughtDate: Date;
-  tickets: number;
-  state: number; // -1 - nieodbyta, 0 - wtrakcie, 1 - odbyta
-  msg: string;
-}
+import { Course } from '../trips/trips.component';
 
 @Component({
-  selector: 'app-trips',
-  templateUrl: './trips.component.html',
-  styleUrls: ['./trips.component.css'],
-  providers: []
+  selector: 'app-edit-view',
+  templateUrl: './edit-view.component.html',
+  styleUrls: ['./edit-view.component.css']
 })
-export class TripsComponent implements OnInit {
+export class EditViewComponent implements OnInit {
   viewFromIndex = 0;
   maxView = 10;
   courses!: Course[];
@@ -98,7 +47,7 @@ export class TripsComponent implements OnInit {
     //   },
     //   error: err => console.log("Wystąpił błąd przy pobieraniu danych z JSON.", err),
     // });
-    this.coursesService.getCourses().subscribe(change => {
+    this.coursesService.getCourses().subscribe((change: any) => {
       this.courses = [];
       for(let course  of change) {
         this.courses.push({
@@ -148,31 +97,17 @@ export class TripsComponent implements OnInit {
     this.realToDate = new Date(Math.max.apply(null,this.courses.map(o => new Date (o.toDate).getTime())));
   }
 
-  add(course : Course) {
+  
 
-    if (course.reserved < course.availableSpots)
-      this.sumOfCourses += 1;
-
-    course.reserved += 1;
-    course.reserved = Math.min(course.availableSpots, course.reserved);
-    console.log(course.id)
-    this.coursesService.updateReserved(course.id, course.reserved);
+  delete(course : Course) {
+    this.sumOfCourses -= course.reserved;
+    this.coursesService.updateReserved(course.id, 0);
+    this.courses = this.courses.filter((elem) => {
+      return elem !== course;
+    });
     this.ngDoCheck();
+
   }
-
-  subtract(course : Course) {
-    
-    if (course.reserved > 0) 
-      this.sumOfCourses -= 1;
-    
-    course.reserved -= 1;
-    course.reserved = Math.max(0, course.reserved);
-    this.coursesService.updateReserved(course.id, course.reserved);
-
-    
-    this.ngDoCheck();
-  }
-
 
   // create(form : FormGroup) {
   //   // console.log(form.value);
@@ -210,7 +145,5 @@ export class TripsComponent implements OnInit {
     }
 
   }
+
 }
-
-
-

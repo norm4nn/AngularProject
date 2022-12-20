@@ -5,8 +5,16 @@
         <a routerLink="/trips" routerLinkActive="active"><div class="nav-tile">Oferta</div></a>
         <a routerLink="/cart" routerLinkActive="active"><div class="nav-tile">Koszyk</div></a>
         <a routerLink="/history" routerLinkActive="active"><div class="nav-tile">Historia zakupów</div></a>
+        <ng-component *ngIf="authService.isLoggedIn then loggedIn  else loggedOut"></ng-component>
+        <ng-template #loggedIn>
+            <a routerLink="/home" routerLinkActive="active"><div class="nav-tile" id="logout" (click)="authService.SignOut()">Log out</div></a>
+        </ng-template>
+        <ng-template #loggedOut>
+            <a routerLink="/signup" routerLinkActive="active"><div class="nav-tile">Sign Up/In</div></a>
+        </ng-template>
     </div>
 </nav>
 <app-counter></app-counter>
 <app-notification></app-notification>
 <router-outlet></router-outlet>
+<app-profile-widget></app-profile-widget>

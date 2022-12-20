@@ -5,21 +5,14 @@
 <!-- <app-create-new (formEvent)='create($any($event))'></app-create-new> -->
 
 <!-- <a routerLink="/create-new"> -->
-<a routerLink="/edit">
+<a routerLink="/create-new">
     <div class="icon-container">
         <span class="material-symbols-outlined">
-            edit
+            add
         </span>
     </div>
 </a>
 
-<a routerLink="/admin">
-    <div class="icon-container2">
-        <span class="material-symbols-outlined">
-            settings
-        </span>
-    </div>
-</a>
 
 
 
@@ -63,17 +56,20 @@
             <ng-template #rating>
                 <div class="line"><h4>Ocena: </h4> {{course.rating}} <span class="fa fa-star" style="color: orange"></span> / 5 <span class="fa fa-star" style="color: orange"></span>, ({{course.amountOfRates}}) </div>
             </ng-template>
-
+            <a routerLink="/modify/{{course.id}}">
+                <div class="edit-icon">
+                    <span class="material-symbols-outlined">
+                        edit
+                    </span>
+                </div>
+            </a>
             <!-- <a routerLink="/course/{{course.id}}"><div class="more-info">
                 Więcej informacji 
                 <span class="material-symbols-outlined">
                     arrow_forward_ios
                 </span></div></a> -->
-            <div class="reserve">
-                <button (click)="add(course)"  [ngClass]="course.reserved == course.availableSpots ? 'hide' : 'appear'">+</button>
-                {{course.reserved}}
-                <button (click)="subtract(course)" [ngClass]="course.reserved == 0 ? 'hide' : 'appear'">-</button>
-            </div>
+            <button class="delete" (click)="delete(course)">Usuń wycieczkę</button>
+
         </div>
         
     </div>

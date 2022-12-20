@@ -28,19 +28,15 @@ import { PageNotFoundComponent } from './page-not-found/page-not-found.component
 import { NotificationComponent } from './notification/notification.component';
 import { StatePipe } from './state.pipe';
 import { SingeCourseViewComponent } from './singe-course-view/singe-course-view.component';
+import { AuthenticationService } from './authentication.service';
+import { SignUpViewComponent } from './sign-up-view/sign-up-view.component';
+import { AuthGuard } from './guard/auth.guard';
+import { EditViewComponent } from './edit-view/edit-view.component';
+import { ModifyViewComponent } from './modify-view/modify-view.component';
+import { AdminViewComponent } from './admin-view/admin-view.component';
+import { ProfileWidgetComponent } from './profile-widget/profile-widget.component';
 
 
-export const appRouter: Routes = [
-  
-  {path: 'trips', component: TripsComponent},
-  {path: 'home', component: HomePageComponent},
-  {path: 'cart', component: CartViewComponent},
-  {path: 'history', component: HistoryViewComponent},
-  {path: 'create-new', component: CreateNewComponent},
-  {path: 'course/:id', component: SingeCourseViewComponent},
-  {path: '', redirectTo: '/home', pathMatch: 'full'},
-  {path: '**', component: PageNotFoundComponent}
-];
 
 @NgModule({
   declarations: [
@@ -61,20 +57,28 @@ export const appRouter: Routes = [
     NotificationComponent,
     StatePipe,
     SingeCourseViewComponent,
+    SignUpViewComponent,
+    EditViewComponent,
+    ModifyViewComponent,
+    AdminViewComponent,
+    ProfileWidgetComponent,
   ],
   imports: [
     BrowserModule,
     HttpClientModule,
     ReactiveFormsModule,
-    RouterModule.forRoot(appRouter),
     AppRoutingModule,
     AngularFireModule.initializeApp( environment.firebaseConfig ),
     AngularFirestoreModule,
     AngularFireDatabaseModule,
+    AngularFireAuthModule,
     FormsModule
   ],
   providers: [
+    AuthenticationService
   ],
   bootstrap: [AppComponent]
 })
-export class AppModule { }
+export class AppModule {
+
+ }

@@ -1,0 +1,36 @@
+<a routerLink="/trips">
+    <div class="icon-container">
+        <span class="material-symbols-outlined">
+            arrow_back
+        </span>
+    </div>
+</a>
+<h2>Lista użytkowników</h2>
+
+<ul>
+    <li *ngFor="let user of users; let i = index">
+        {{user.nick}} | Ustaw nową role:
+        <select #select (change)="changeRole(user.uid, select.value)">
+            <!-- <option value="none" selected="true"> </option> -->
+            <option value="customer" [selected]="user.role === 'customer'">Customer</option>
+            <option value="manager" [selected]="user.role === 'manager'">Manager</option>
+            <option value="admin" [selected]="user.role === 'admin'">Admin</option>
+        </select>
+        Ban:
+        <input #ban name="ban" type="checkbox" [checked]="user.banned" (click)="changeBan(user.uid, ban.checked)">
+    </li>
+    
+
+</ul>
+
+
+<div class="set-pers">
+    Set persistance: 
+    <select #selectPers (change)="changePersistance(selectPers.value)">
+        <!-- <option value="none" selected="true"> </option> -->
+        <option value="session" [selected]="persistance === 'session'">Session</option>
+        <option value="local" [selected]="persistance === 'local'">Local</option>
+        <option value="none" [selected]="persistance === 'none'">None</option>
+    </select>
+
+</div>

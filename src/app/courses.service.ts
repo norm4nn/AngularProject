@@ -52,6 +52,20 @@ export class CoursesService {
     this.coursesRef.doc(id+'').update({reserved: reserved1});
   }
 
+  update(id: number, course: Course) {
+    this.coursesRef.doc(id+'').update({
+      name: course.name,
+      country: course.country,
+      id: course.id,
+      location: course.location,
+      fromDate: course.fromDate,
+      toDate: course.toDate,
+      price: course.price,
+      availableSpots: course.availableSpots,
+      description: course.description
+    });
+  }
+
   passToBought(course: Course) {
     let state = this.dateService.setCourseState(course) 
     let msg = "WYCIECZKA ODBYTA";

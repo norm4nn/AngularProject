@@ -1,6 +1,6 @@
 
 #cards-container {
-    margin-top: 10vh;
+    margin-top: 12vh;
     width: 100vw;
     height: auto;
     display: flex;
@@ -103,7 +103,7 @@ h4 {
     margin-left: auto;
     margin-right: auto;
     width: 30vw;
-    top: 5vh;
+    top: 20vh;
     display: flex;
     justify-content: space-around;
     justify-items: center;
@@ -135,7 +135,7 @@ h4 {
     }
 
     .right {
-        font-size: 2vw;
+        font-size: 3vw;
     }
 
     .state {

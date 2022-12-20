@@ -1,4 +1,5 @@
 import { Component, OnInit } from '@angular/core';
+import { AuthenticationService } from '../authentication.service';
 import { CartServiceService } from '../cart-service.service';
 import { CoursesService } from '../courses.service';
 import { DateService } from '../date.service';
@@ -13,7 +14,7 @@ export class CartViewComponent implements OnInit {
 
   courses!: Course[];
   currencyType = this.dateService.currency;
-  constructor(private coursesService: CoursesService, private dateService: DateService) { }
+  constructor(private coursesService: CoursesService, private dateService: DateService, private authService: AuthenticationService) { }
 
   ngOnInit(): void {
     this.coursesService.getReserved().subscribe(change => {
@@ -64,6 +65,7 @@ export class CartViewComponent implements OnInit {
   }
 
   buy(course : Course) {
+    if (this.authService.userData)
     this.coursesService.passToBought(course);
     this.coursesService.updateReserved(course.id, 0);
   }

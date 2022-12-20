@@ -1,6 +1,6 @@
 #container {
     min-width: auto;
-    width: 15vw;
+    max-width: 15%;
     padding: 2vh 2vw;
     font-size: 1.5vw;
     border-radius: 25px;
@@ -14,6 +14,7 @@
 
 @media screen and (max-width: 800px) {
     #container {
-        width: 20vw;
+        font-size: 3vw;
+        max-width: 30%;
     }
 }

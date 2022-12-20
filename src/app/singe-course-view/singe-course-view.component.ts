@@ -1,6 +1,7 @@
 import { core } from '@angular/compiler';
 import { Component, OnInit } from '@angular/core';
 import { ActivatedRoute } from '@angular/router';
+import { AuthenticationService } from '../authentication.service';
 import { CoursesService } from '../courses.service';
 import { DateService } from '../date.service';
 import { BoughtCourse, Course } from '../trips/trips.component';
@@ -20,16 +21,24 @@ export class SingeCourseViewComponent implements OnInit {
   id!: number;
   currentImg!: number;
   currencyType!: string;
-  one2five = [1,2,3,4,5]
-  constructor( private dateService: DateService, private coursesService: CoursesService, private route: ActivatedRoute) { }
+  one2five = [1,2,3,4,5];
+  reviewed!: any[];
+  constructor( private dateService: DateService, private coursesService: CoursesService, private route: ActivatedRoute, private authService: AuthenticationService) { }
   
   ngOnInit(): void {
     this.posts = [];
     this.currencyType = this.dateService.currency; 
     this.imagesEl = [];
     this.currentImg = 0;
+    this.reviewed = [];
     this.route.params.subscribe(params => {
       this.id = params['id'];
+    });
+
+    this.authService.getCurrentUser().subscribe((user : any) => {
+      this.authService.usersRef.doc(user?.uid + '').valueChanges().subscribe((user2 : any) => {
+        this.reviewed = user2.reviewed;
+      })
     });
 
     this.coursesService.getCourses().subscribe(change => {
@@ -119,16 +128,17 @@ export class SingeCourseViewComponent implements OnInit {
   }
 
   createPost(post: Post) {
-    if (this.isbought && (this.course as BoughtCourse).state === 1) {
+    this.authService.isLogged();
+    if (this.isbought && (this.course as BoughtCourse).state === 1 && this.authService.isLoggedIn  && !(new Set(this.reviewed).has(this.id))) {
       this.posts.push(post);
       let newRating = this.course!.rating * this.course!.amountOfRates + post.rate;
       this.course!.amountOfRates += 1;
       this.course!.rating =  newRating / this.course!.amountOfRates;
       this.course!.rating =  Number.parseInt( Number.parseFloat(this.course!.rating + '').toFixed());
-      
+      this.authService.passIdToReviewe(this.id);
     }
     else {
-      alert("Oceniać możesz tylko zkaupione i odbyte wycieczki!");
+      alert("Oceniać możesz tylko jeśli: \n 1) jesteś zalogowanym uytkownikiem \n 2) zakupileś i odbyłeś daną wycieczkę \n 3) nie oceniłeś jeszcze danej wycieczki");
     }
 
     

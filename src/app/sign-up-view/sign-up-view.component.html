@@ -1,0 +1,35 @@
+<div class="authBlock">
+    <h3>Sign Up/In</h3>
+    <div class="formGroup">
+      <input
+        type="text"
+        class="formControl"
+        placeholder="Username"
+        #userEmail
+        required
+      />
+    </div>
+    <div class="formGroup">
+      <input
+        type="password"
+        class="formControl"
+        placeholder="Password"
+        #userPassword
+        required
+      />
+    </div>
+    <div class="formGroup">
+      <button
+        class="btn btnPrimary"
+        (click)="
+            signup(userEmail.value, userPassword.value)
+        "
+      > Sign up </button>
+      <button
+          class="btn btnPrimary"
+          (click)="
+              signin(userEmail.value, userPassword.value)
+          "
+        > Sign in </button>
+    </div>
+  </div>

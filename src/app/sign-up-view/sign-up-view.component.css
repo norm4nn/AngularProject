@@ -1,0 +1,15 @@
+:host {
+    width: 100vw;
+    height: 60vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    color: #7637D2 !important;
+    
+}
+
+.authBlock {
+    border: 3px solid #7637D2;
+    padding: 2%;
+    border-radius: 25px;
+}

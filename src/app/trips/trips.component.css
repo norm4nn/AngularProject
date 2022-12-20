@@ -144,6 +144,24 @@ h4 {
     position: fixed;
 }
 
+.icon-container2 {
+    top: 36%;
+    right: 1vw;
+    background-color: rgb(164, 62, 192);
+    min-width: 30px;
+    min-height: 30px;
+    width: 3vw;
+    height: 3vw;
+    display: flex;
+    align-items: center;
+    justify-items: center;
+    justify-content: center;
+    border: 2px solid black;
+    border-radius: 5px;
+    position: fixed;
+}
+
+
 .material-symbols-outlined {
     font-variation-settings:
     'FILL' 0,
@@ -152,6 +170,15 @@ h4 {
     'opsz' 40;
     color: white !important;
 }
+
+.icon-container2 .material-symbols-outlined {
+  font-variation-settings:
+  'FILL' 1,
+  'wght' 700,
+  'GRAD' 0,
+  'opsz' 48;
+}
+
 
 .more-info {
     color: white;
@@ -195,7 +222,7 @@ a {
     }
 
     .right {
-        font-size: 2vw;
+        font-size: 3vw;
     }
 }
 

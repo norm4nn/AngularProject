@@ -9,8 +9,8 @@
 <form [formGroup]="modelForm" (ngSubmit)="onSubmit(modelForm)">
     <div id="left">
         
-    <label>Nazwa:</label><input name="name" formControlName="name">
-    <span class="requirement" *ngIf="formErrors.name">{{ formErrors.name }}</span><br>
+    <label>Nazwa:</label><input name="name" formControlName="name" >
+    <span class="requirement" *ngIf="formErrors.name" >{{ formErrors.name }}</span><br>
 
     <label>Kraj:</label><input name="country" formControlName="country">
     <span class="requirement" *ngIf="formErrors.country">{{ formErrors.country }}</span><br>
@@ -34,5 +34,5 @@
     <span class="requirement" *ngIf="formErrors.description">{{ formErrors.description }}</span><br>
 
     </div>
-    <button [disabled]="!modelForm.valid"  type="submit" id="add-trip" >Dodaj wycieczkę</button>
+    <button [disabled]="!modelForm.valid"  type="submit" id="add-trip" >Edytuj wycieczkę</button>
 </form>
