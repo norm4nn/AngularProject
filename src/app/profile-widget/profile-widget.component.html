@@ -1,5 +1,5 @@
 
-        <div class="profile" *ngIf="nick; else guest">
+        <div class="profile" *ngIf="authService.isLoggedIn; else guest">
             Nick: {{nick}} <br>
             Role: {{role}} <br>
         </div>

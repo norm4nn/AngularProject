@@ -23,6 +23,7 @@ export class SingeCourseViewComponent implements OnInit {
   currencyType!: string;
   one2five = [1,2,3,4,5];
   reviewed!: any[];
+  banned!: boolean;
   constructor( private dateService: DateService, private coursesService: CoursesService, private route: ActivatedRoute, private authService: AuthenticationService) { }
   
   ngOnInit(): void {
@@ -31,6 +32,7 @@ export class SingeCourseViewComponent implements OnInit {
     this.imagesEl = [];
     this.currentImg = 0;
     this.reviewed = [];
+    this.banned = false;
     this.route.params.subscribe(params => {
       this.id = params['id'];
     });
@@ -38,6 +40,7 @@ export class SingeCourseViewComponent implements OnInit {
     this.authService.getCurrentUser().subscribe((user : any) => {
       this.authService.usersRef.doc(user?.uid + '').valueChanges().subscribe((user2 : any) => {
         this.reviewed = user2.reviewed;
+        this.banned = user2.banned;
       })
     });
 
@@ -129,7 +132,7 @@ export class SingeCourseViewComponent implements OnInit {
 
   createPost(post: Post) {
     this.authService.isLogged();
-    if (this.isbought && (this.course as BoughtCourse).state === 1 && this.authService.isLoggedIn  && !(new Set(this.reviewed).has(this.id))) {
+    if (this.isbought && (this.course as BoughtCourse).state === 1 && this.authService.isLoggedIn  && !(new Set(this.reviewed).has(this.id)) && !this.banned) {
       this.posts.push(post);
       let newRating = this.course!.rating * this.course!.amountOfRates + post.rate;
       this.course!.amountOfRates += 1;
@@ -138,7 +141,7 @@ export class SingeCourseViewComponent implements OnInit {
       this.authService.passIdToReviewe(this.id);
     }
     else {
-      alert("Oceniać możesz tylko jeśli: \n 1) jesteś zalogowanym uytkownikiem \n 2) zakupileś i odbyłeś daną wycieczkę \n 3) nie oceniłeś jeszcze danej wycieczki");
+      alert("Oceniać możesz tylko jeśli: \n 1) jesteś zalogowanym uytkownikiem \n 2) zakupileś i odbyłeś daną wycieczkę \n 3) nie oceniłeś jeszcze danej wycieczki \n 4) nie jesteś zbanowany");
     }
 
     

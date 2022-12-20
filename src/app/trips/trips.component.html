@@ -5,7 +5,7 @@
 <!-- <app-create-new (formEvent)='create($any($event))'></app-create-new> -->
 
 <!-- <a routerLink="/create-new"> -->
-<a routerLink="/edit">
+<a routerLink="/edit" *ngIf="authService.isLoggedIn && (role === 'admin' || role === 'manager')">
     <div class="icon-container">
         <span class="material-symbols-outlined">
             edit
@@ -13,7 +13,7 @@
     </div>
 </a>
 
-<a routerLink="/admin">
+<a routerLink="/admin" *ngIf="authService.isLoggedIn && role === 'admin'">
     <div class="icon-container2">
         <span class="material-symbols-outlined">
             settings

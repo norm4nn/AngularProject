@@ -21,6 +21,7 @@ export class RoleGuard implements CanActivate {
       (this.auth.currentRole !== expectedRole1 && this.auth.currentRole !== expectedRole2)
     ) {
       window.alert('Brak uprawnień!');
+      this.router.navigate(['home']);
       return false;
     }
     return true;

@@ -19,7 +19,7 @@ export class AdminGuard implements CanActivate {
         !this.auth.isLoggedIn || 
         (this.auth.currentRole !== expectedRole1)
       ) {
-        window.alert('Brak uprawnień!');
+        this.router.navigate(['home']);
         return false;
       }
       return true;

@@ -87,7 +87,7 @@ export class AuthenticationService {
           email: result.user?.email,
           role: 'customer',
           banned: false,
-          reviewed: new Set(),
+          reviewed: [],
         } as User );
         this.router.navigate(['/home']);
         window.alert('You have been successfully registered!');

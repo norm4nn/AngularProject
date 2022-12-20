@@ -9,15 +9,16 @@ import { AuthenticationService } from '../authentication.service';
 export class ProfileWidgetComponent implements OnInit {
   nick!: string;
   role!: string;
-  constructor(private authService : AuthenticationService) { }
+  constructor(public authService : AuthenticationService) { }
 
   ngOnInit(): void {
     this.nick = '';
     this.role = '';
+    
     this.authService.getCurrentUser().subscribe((user : any) => {
       this.authService.usersRef.doc(user?.uid + '').valueChanges().subscribe((user2 : any) => {
-        this.nick = user2?.nick;
-        this.role = user2?.role;
+        this.nick = user2 ? user2.nick : undefined;
+        this.role = user2 ? user2.role : undefined;
       })
     });
   }

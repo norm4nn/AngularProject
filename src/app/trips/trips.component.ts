@@ -4,6 +4,7 @@ import { FormGroup } from '@angular/forms';
 import { Observable } from 'rxjs';
 import { CoursesService } from '../courses.service';
 import { DateService } from '../date.service';
+import { AuthenticationService } from '../authentication.service';
 
 export interface Course {
   id: number;
@@ -68,6 +69,8 @@ export class TripsComponent implements OnInit {
   courses!: Course[];
   sumOfCourses = 0;
   currencyType = this.dateService.currency;
+  role!: string;
+
   conditionName = '';
   conditionCountry = '';
   conditionMinPrice!: number;
@@ -85,7 +88,7 @@ export class TripsComponent implements OnInit {
   realToDate!: Date;
 
   item$!: Observable<any>;
-  constructor(private http: HttpClient, private dateService: DateService, private coursesService: CoursesService) { }
+  constructor(private http: HttpClient, private dateService: DateService, private coursesService: CoursesService, public authService: AuthenticationService) { }
 
   
   
@@ -98,6 +101,7 @@ export class TripsComponent implements OnInit {
     //   },
     //   error: err => console.log("Wystąpił błąd przy pobieraniu danych z JSON.", err),
     // });
+    this.role = this.authService.currentRole;
     this.coursesService.getCourses().subscribe(change => {
       this.courses = [];
       for(let course  of change) {
@@ -126,8 +130,7 @@ export class TripsComponent implements OnInit {
   
   ngDoCheck() {
       this.findMaxMin();
-      
-      
+         
   }
 
   findMaxMin() {
