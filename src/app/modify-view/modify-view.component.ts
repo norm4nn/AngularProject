@@ -25,7 +25,7 @@ export class ModifyViewComponent implements OnInit {
       toDate: ['', Validators.required],
       price: ['', [Validators.required, Validators.pattern('^[ ]*?[1-9]([0-9]+)?[ ]*?$')]],
       availableSpots: ['', [Validators.required, Validators.pattern('^[ ]*?[1-9]([0-9]+)?[ ]*?$')]],
-      description: ['', [Validators.required, Validators.pattern('^[ ]*?([A-ZŻŹĆĄŚĘŁÓŃ]([A-Za-z0-9 !?.,żźćńółęąśŻŹĆĄŚĘŁÓŃ]+)?)[.]([ ]*)?$')]]
+      description: ['', [Validators.required]]
     });
 
     this.route.params.subscribe(params => {
